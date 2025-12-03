@@ -11,7 +11,7 @@ export default function About() {
     >
       <h2>About Me</h2>
       <p>
-        I’m Yash Girish Chaudhari — a Computer Engineering student (2nd year)
+        I’m Yash Girish Chaudhari — a Computer science diploma student 
         from R C Patel Polytechnic. Passionate about DevOps, AWS Cloud,
         full-stack development, CI/CD pipelines and automation.
       </p>
