@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/project2/static/css/main.390e1f2b.css",
-    "main.js": "/project2/static/js/main.79512559.js",
-    "static/js/453.826f5f39.chunk.js": "/project2/static/js/453.826f5f39.chunk.js",
-    "static/media/yash1.png": "/project2/static/media/yash1.2d9ef56b359216f3fddc.png",
-    "static/media/yash2.png": "/project2/static/media/yash2.d5039baf74bb0aa05d31.png",
-    "static/media/resume.pdf": "/project2/static/media/resume.05761d6428aa3b59c95a.pdf",
-    "index.html": "/project2/index.html",
-    "main.390e1f2b.css.map": "/project2/static/css/main.390e1f2b.css.map",
-    "main.79512559.js.map": "/project2/static/js/main.79512559.js.map",
-    "453.826f5f39.chunk.js.map": "/project2/static/js/453.826f5f39.chunk.js.map"
+    "main.css": "/yash-portfolio/static/css/main.390e1f2b.css",
+    "main.js": "/yash-portfolio/static/js/main.7d06f546.js",
+    "static/js/453.826f5f39.chunk.js": "/yash-portfolio/static/js/453.826f5f39.chunk.js",
+    "static/media/yash1.png": "/yash-portfolio/static/media/yash1.2d9ef56b359216f3fddc.png",
+    "static/media/yash2.png": "/yash-portfolio/static/media/yash2.d5039baf74bb0aa05d31.png",
+    "static/media/resume.pdf": "/yash-portfolio/static/media/resume.05761d6428aa3b59c95a.pdf",
+    "index.html": "/yash-portfolio/index.html",
+    "main.390e1f2b.css.map": "/yash-portfolio/static/css/main.390e1f2b.css.map",
+    "main.7d06f546.js.map": "/yash-portfolio/static/js/main.7d06f546.js.map",
+    "453.826f5f39.chunk.js.map": "/yash-portfolio/static/js/453.826f5f39.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.390e1f2b.css",
-    "static/js/main.79512559.js"
+    "static/js/main.7d06f546.js"
   ]
 }
