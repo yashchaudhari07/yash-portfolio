@@ -12,7 +12,7 @@ export default function Contact() {
     >
       <h2>Contact</h2>
 
-      <div style={{ display: "flex", gap: "25px", alignItems: "center" }}>
+      <div className="contact-container" style={{ display: "flex", gap: "25px", alignItems: "center" }}>
         <img 
           src={yash2} 
           alt="Yash" 

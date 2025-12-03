@@ -8,16 +8,17 @@ export default function Hero() {
 
       <motion.img
         src={yash1}
+        className="hero-img"
         alt="Yash"
         initial={{ opacity: 0, scale: 0.6 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8 }}
-         style={{
-    width: "450px",   // ✅ SMALL + CLEAN
-    borderRadius: "14px",
-    marginBottom: "20px",
-    marginTop: "-200px"
-  }}
+        style={{
+          width: "450px",   // ✅ SMALL + CLEAN
+          borderRadius: "14px",
+          marginBottom: "20px",
+          marginTop: "-200px"
+        }}
       />
 
       <h1>Hi, I'm Yash Girish Chaudhari 🚀</h1>

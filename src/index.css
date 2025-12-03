@@ -65,3 +65,69 @@ body {
 .nav-link:hover::after {
   width: 100%;
 }
+
+/* MOBILE RESPONSIVE FIX */
+@media (max-width: 600px) {
+
+  .section {
+    padding: 50px 18px;
+  }
+
+  h1, h2 {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  p, li {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* Navbar mobile */
+  nav {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+  nav div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  /* Hero image */
+  .hero-img {
+    width: 140px !important;
+    height: 140px !important;
+  }
+
+  /* Contact section image + text */
+  .contact-container {
+    flex-direction: column !important;
+    text-align: center;
+  }
+
+  .contact-container img {
+    width: 130px !important;
+    margin-bottom: 14px;
+  }
+
+  .card {
+    padding: 18px !important;
+      max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  }
+  html {
+  font-size: 16px;
+}
+
+
+}
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+}
+
