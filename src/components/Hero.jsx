@@ -14,10 +14,10 @@ export default function Hero() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8 }}
         style={{
-          width: "450px",   // ✅ SMALL + CLEAN
+          width: "350px",   // ✅ SMALL + CLEAN
           borderRadius: "14px",
           marginBottom: "20px",
-          marginTop: "-200px"
+          marginTop: "-150px"
         }}
       />
 
