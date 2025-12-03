@@ -13,11 +13,11 @@ export default function Skills() {
       <ul>
         <li>AWS (EC2, S3, RDS, Lambda, CloudFront, IAM)</li>
         <li>DevOps (Git, GitHub, Jenkins, CI/CD)</li>
-        <li>Node.js + Express Backend</li>
         <li>React.js Frontend</li>
         <li>MySQL Database + AWS RDS</li>
         <li>Docker Basics</li>
-        <li>C, C++, Java</li>
+        <li>C, C++, Java, python</li>
+        <li>HTML, CSS, JavaScript, jQuery, bootstrap</li>
       </ul>
     </motion.section>
   );
