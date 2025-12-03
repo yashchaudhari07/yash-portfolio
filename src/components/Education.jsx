@@ -12,7 +12,6 @@ export default function Education() {
       <h2>Education</h2>
       <ul>
         <li>Diploma in Computer Science – R C Patel Polytechnic (2023–2026)</li>
-        <li>Completed HSC - Science</li>
         <li>Completed SSC</li>
       </ul>
     </motion.section>

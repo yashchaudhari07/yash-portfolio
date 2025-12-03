@@ -16,7 +16,8 @@ export default function Projects() {
         <li>CI/CD Pipeline (GitHub → Jenkins → EC2)</li>
         <li>Furniture Shop Website</li>
         <li>Online Money Transaction Website</li>
-        <li>or many more ..... (check git repo...)</li>
+        <li>or many more ..... (check git repo...)           <p>GitHub:<a style={{color:'white'}} target="_blank" href="https://github.com/yashchaudhari07?tab=repositories">www.github.com/yashchaudhari07/</a></p>
+</li>
       </ul>
     </motion.section>
   );
