@@ -48,7 +48,7 @@ body {
 .nav-link {
   position: relative;
   padding: 8px 14px;
-  font-weight: 500;
+  font-weight: 500; 
 }
 
 .nav-link::after {
@@ -68,9 +68,12 @@ body {
 
 /* MOBILE RESPONSIVE FIX */
 @media (max-width: 600px) {
-
+   *{
+    overflow-x: hidden;
+   }
   .section {
     padding: 50px 18px;
+  
   }
 
   h1, h2 {
@@ -88,6 +91,7 @@ body {
     flex-direction: column;
     gap: 12px;
     text-align: center;
+    margin-bottom: 10px;
   }
   nav div {
     display: flex;
@@ -100,7 +104,7 @@ body {
   .hero-img {
     width: 150px !important;
     height: 250px !important;
-    margin-top: 15px !important;
+    
   }
 
   /* Contact section image + text */
