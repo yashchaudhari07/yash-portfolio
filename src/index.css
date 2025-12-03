@@ -9,6 +9,16 @@
   --glass: rgba(255,255,255,0.06);
 }
 
+.hero-img {
+  width: 180px;
+  height: 180px;
+  border-radius: 18px;
+  object-fit: cover;
+  object-position: center;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  transition: 0.3s ease;
+}
 body {
   margin: 0;
   background: linear-gradient(135deg, var(--bg1), var(--bg2));
@@ -31,6 +41,9 @@ body {
   border: 1px solid rgba(255,255,255,0.1);
   box-shadow: 0 10px 30px rgba(0,0,0,0.4);
   animation: fadeIn 0.6s ease;
+}
+.hero-img:hover {
+  transform: translateY(-4px) scale(1.02);
 }
 
 @keyframes fadeIn {
@@ -103,6 +116,7 @@ body {
   .hero-img {
     width: 150px !important;
     height: 250px !important;
+    border-radius: 16px;
   }
 
   /* Contact section image + text */

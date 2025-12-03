@@ -6,20 +6,15 @@ export default function Hero() {
   return (
     <section className="section" style={{ textAlign: "center" }}>
 
-      <motion.img
-        src={yash1}
-        className="hero-img"
-        alt="Yash"
-        initial={{ opacity: 0, scale: 0.6 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8 }}
-        style={{
-          width: "350px",   // ✅ SMALL + CLEAN
-          borderRadius: "14px",
-          marginBottom: "20px",
-          marginTop: "-150px"
-        }}
-      />
+    <motion.img
+  src={yash1}
+  alt="Yash"
+  className="hero-img"
+  initial={{ opacity: 0, scale: 0.7 }}
+  animate={{ opacity: 1, scale: 1 }}
+  transition={{ duration: 0.8 }}
+/>
+
 
       <h1>Hi, I'm Yash Girish Chaudhari 🚀</h1>
 
