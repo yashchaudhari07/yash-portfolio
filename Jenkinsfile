@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     environment {
-        // Use the exact ID of the SSH credential you stored in Jenkins
         EC2_CRED_ID    = 'ec2-cicd-id' 
         EC2_PUBLIC_IP  = '13.233.192.82'
         EC2_USER       = 'ubuntu'
@@ -19,22 +18,26 @@ pipeline {
 
         stage('Remote Pull & Restart Application') {
             steps {
-                echo 'Connecting securely to EC2 using withCredentials block...'
+                echo 'Connecting securely to EC2 with restrictive Windows file permissions...'
                 
-                // This block replaces the crashing sshagent plugin
                 withCredentials([sshUserPrivateKey(credentialsId: env.EC2_CRED_ID, keyFileVariable: 'KEY_PATH')]) {
+                    // 1. Reset file inheritance and grant exclusive access only to the current executing system user
+                    bat "icacls \"%KEY_PATH%\" /c /t /inheritance:d"
+                    bat "icacls \"%KEY_PATH%\" /c /t /grant %USERNAME%:F"
+                    bat "icacls \"%KEY_PATH%\" /c /t /remove \"BUILTIN\\Users\""
+                    bat "icacls \"%KEY_PATH%\" /c /t /remove \"Everyone\""
                     
-                    // 1. Pull the latest code inside your EC2 repo directory
-                    bat "ssh -o StrictHostKeyChecking=no -i %KEY_PATH% ${EC2_USER}@${EC2_PUBLIC_IP} \"cd ${PROJECT_DIR} && git pull origin main\""
+                    // 2. Execute the remote pull on the EC2 server now that the key is secure
+                    bat "ssh -o StrictHostKeyChecking=no -i \"%KEY_PATH%\" ${EC2_USER}@${EC2_PUBLIC_IP} \"cd ${PROJECT_DIR} && git pull origin main\""
                     
-                    // 2. Install any freshly updated npm packages on your server
-                    bat "ssh -o StrictHostKeyChecking=no -i %KEY_PATH% ${EC2_USER}@${EC2_PUBLIC_IP} \"cd ${PROJECT_DIR} && npm install\""
+                    // 3. Install fresh dependencies on the EC2 server
+                    bat "ssh -o StrictHostKeyChecking=no -i \"%KEY_PATH%\" ${EC2_USER}@${EC2_PUBLIC_IP} \"cd ${PROJECT_DIR} && npm install\""
                     
-                    // 3. Force stop any legacy process currently occupying port 3000
-                    bat "ssh -o StrictHostKeyChecking=no -i %KEY_PATH% ${EC2_USER}@${EC2_PUBLIC_IP} \"sudo kill -9 \$(sudo lsof -t -i:3000) || true\""
+                    // 4. Terminate any stale process running on port 3000
+                    bat "ssh -o StrictHostKeyChecking=no -i \"%KEY_PATH%\" ${EC2_USER}@${EC2_PUBLIC_IP} \"sudo kill -9 \$(sudo lsof -t -i:3000) || true\""
                     
-                    // 4. Fire up the React background server process cleanly
-                    bat "ssh -o StrictHostKeyChecking=no -i %KEY_PATH% ${EC2_USER}@${EC2_PUBLIC_IP} \"cd ${PROJECT_DIR} && BUILD_ID=dontKillMe nohup npm start > /dev/null 2>&1 &\""
+                    // 5. Relaunch the React portfolio application process cleanly in the background
+                    bat "ssh -o StrictHostKeyChecking=no -i \"%KEY_PATH%\" ${EC2_USER}@${EC2_PUBLIC_IP} \"cd ${PROJECT_DIR} && BUILD_ID=dontKillMe nohup npm start > /dev/null 2>&1 &\""
                 }
             }
         }
