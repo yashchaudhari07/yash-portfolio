@@ -16,7 +16,7 @@ export default function Hero() {
 />
 
 
-      <h1>Hi, I'm Yash Girish Chaudhari and I automated this portfolio using CICD pipeline 🚀</h1>
+      <h1>Hi, I'm Yash Girish Chaudhari🚀</h1>
 
       <a href={resume} download>   {/* ✅ FIX */}
         <motion.button
