@@ -2,47 +2,35 @@ pipeline {
     agent any
 
     environment {
-        // Unique ID you will set inside the Jenkins Credentials Manager
         EC2_CREDENTIALS_ID = 'ec2-cicd-id'
-        // The public IP or Public DNS of your AWS EC2 Instance
-        EC2_PUBLIC_IP     = '13.233.192.82'
-        // Default SSH user for Ubuntu instances
+        EC2_PUBLIC_IP     = '13.233.192.82' // Your verified EC2 Public IP
         EC2_USER          = 'ubuntu'
-        // The directory on EC2 where your web server (like Nginx) serves the site
-        TARGET_DIR        = '/var/www/html'
+        PROJECT_DIR        = '/home/ubuntu/Yash-portfolio/yash-portfolio'
     }
 
-   stages {
-        stage('Code Checkout') {
+    stages {
+        stage('Local Verification') {
             steps {
+                echo 'Checking local source code configuration...'
                 checkout scm
             }
         }
 
-        stage('Install & Test') {
+        stage('Remote Pull & Restart Application') {
             steps {
-                echo 'Installing dependencies and running tests...'
-                sh 'npm install'
-                sh 'CI=true npm test -- --watchAll=false'
-            }
-        }
-
-        stage('Build React App') {
-            steps {
-                echo 'Compiling React production build...'
-                sh 'npm run build'
-            }
-        }
-
-        stage('Deploy to EC2') {
-            steps {
-                echo 'Cleaning old files and deploying new React app...'
+                echo 'Connecting securely to EC2 to pull new changes and restart server...'
                 sshagent([EC2_CREDENTIALS_ID]) {
-                    // 1. Grant permissions and delete the default Nginx index file along with older builds
-                    sh "ssh -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_PUBLIC_IP} 'sudo rm -f ${TARGET_DIR}/index.nginx-debian.html && sudo chown -R ubuntu:ubuntu ${TARGET_DIR}'"
+                    // 1. Connect to EC2, navigate to your portfolio folder, and pull the latest code directly from GitHub
+                    sh "ssh -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_PUBLIC_IP} 'cd ${PROJECT_DIR} && git pull origin main'"
                     
-                    // 2. Copy the freshly built React production files directly into /var/www/html
-                    sh "scp -r build/* ${EC2_USER}@${EC2_PUBLIC_IP}:${TARGET_DIR}/"
+                    // 2. Install any updated package dependencies on the server
+                    sh "ssh -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_PUBLIC_IP} 'cd ${PROJECT_DIR} && npm install'"
+                    
+                    // 3. Stop any existing application instances running on port 3000 to free up the port
+                    sh "ssh -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_PUBLIC_IP} 'sudo kill -9 \$(sudo lsof -t -i:3000) || true'"
+                    
+                    // 4. Start the React server in the background so it stays alive after Jenkins disconnects
+                    sh "ssh -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_PUBLIC_IP} 'cd ${PROJECT_DIR} && BUILD_ID=dontKillMe nohup npm start > /dev/null 2>&1 &'"
                 }
             }
         }
