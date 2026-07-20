@@ -32,16 +32,19 @@ pipeline {
                     bat "icacls \"%KEY_PATH%\" /c /t /remove \"BUILTIN\\Users\""
                     bat "icacls \"%KEY_PATH%\" /c /t /remove \"Everyone\""
                     
-                    // 4. Execute the remote pull on the EC2 server now that the key is secure
+                    // 4. Execute the remote pull on the EC2 server
                     bat "ssh -o StrictHostKeyChecking=no -i \"%KEY_PATH%\" ${EC2_USER}@${EC2_PUBLIC_IP} \"cd ${PROJECT_DIR} && git pull origin main\""
                     
-                    // 5. Install fresh dependencies on the EC2 server
+                    // 5. THE FIX: Reclaim ownership of the directory from root so npm install doesn't get blocked
+                    bat "ssh -o StrictHostKeyChecking=no -i \"%KEY_PATH%\" ${EC2_USER}@${EC2_PUBLIC_IP} \"sudo chown -R ubuntu:ubuntu ${PROJECT_DIR}\""
+                    
+                    // 6. Install fresh dependencies on the EC2 server (This will now succeed)
                     bat "ssh -o StrictHostKeyChecking=no -i \"%KEY_PATH%\" ${EC2_USER}@${EC2_PUBLIC_IP} \"cd ${PROJECT_DIR} && npm install\""
                     
-                    // 6. Terminate any stale process currently occupying port 3000
+                    // 7. Terminate any stale process currently occupying port 3000
                     bat "ssh -o StrictHostKeyChecking=no -i \"%KEY_PATH%\" ${EC2_USER}@${EC2_PUBLIC_IP} \"sudo kill -9 \$(sudo lsof -t -i:3000) || true\""
                     
-                    // 7. Relaunch the React portfolio application process cleanly in the background
+                    // 8. Relaunch the React portfolio application process cleanly in the background
                     bat "ssh -o StrictHostKeyChecking=no -i \"%KEY_PATH%\" ${EC2_USER}@${EC2_PUBLIC_IP} \"cd ${PROJECT_DIR} && BUILD_ID=dontKillMe nohup npm start > /dev/null 2>&1 &\""
                 }
             }
