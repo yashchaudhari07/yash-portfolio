@@ -6,8 +6,7 @@ pipeline {
         stage('Test SSH') {
             steps {
                 bat '''
-                ssh -i C:\\Users\\Admin\\.ssh\\docker-key-pair.pem ^
-                -o StrictHostKeyChecking=no ^
+                ssh -i C:\\keys\\docker-key-pair.pem -o StrictHostKeyChecking=no ubuntu@13.204.43.129 "hostname"                -o StrictHostKeyChecking=no ^
                 ubuntu@13.204.43.129 ^
                 "hostname"
                 '''
@@ -17,8 +16,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 bat '''
-                ssh -i C:\\Users\\Admin\\.ssh\\docker-key-pair.pem ^
-                -o StrictHostKeyChecking=no ^
+                ssh -i C:\\keys\\docker-key-pair.pem -o StrictHostKeyChecking=no ubuntu@13.204.43.129 "hostname"                -o StrictHostKeyChecking=no ^
                 ubuntu@13.204.43.129 ^
                 "cd /home/ubuntu/yash-portfolio && git pull"
                 '''
