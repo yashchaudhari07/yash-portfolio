@@ -7,7 +7,7 @@ pipeline {
             steps {
                 sshagent(credentials: ['ec2-key']) {
                     bat '''
-                    ssh -o StrictHostKeyChecking=no ubuntu@YOUR_PUBLIC_IP "hostname"
+                    ssh -o StrictHostKeyChecking=no ubuntu@13.204.43.129 "hostname"
                     '''
                 }
             }
@@ -20,7 +20,7 @@ pipeline {
         sshagent(credentials: ['ec2-key']) {
 
             bat '''
-            ssh ubuntu@YOUR_PUBLIC_IP "
+            ssh ubuntu@13.204.43.129 "
             cd myproject &&
             git pull &&
             npm install &&
