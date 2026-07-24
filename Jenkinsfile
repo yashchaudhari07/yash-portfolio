@@ -1,21 +1,38 @@
 pipeline {
-    agent any 
+    agent any
+
+    tools {
+        nodejs 'NodeJS-24'
+    }
+
     stages {
+
         stage('Checkout') {
             steps {
-                echo 'Pulling the latest code from GitHub...'
+                checkout scm
             }
         }
-        stage('Test') {
+
+        stage('Install Dependencies') {
             steps {
-                echo 'Running automated application test suites...'
-                // Example: sh 'npm test' or 'python -m unittest'
+                sh 'npm install'
             }
         }
+
+        stage('Build React App') {
+            steps {
+                sh 'npm run build'
+            }
+        }
+
         stage('Deploy') {
             steps {
-                echo 'Logging into EC2 and deploying application...'
+                sh '''
+                sudo rm -rf /var/www/html/*
+                sudo cp -r build/* /var/www/html/
+                '''
             }
         }
+
     }
 }
